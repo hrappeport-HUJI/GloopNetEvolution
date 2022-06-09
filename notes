@@ -1,0 +1,46 @@
+(I want to start doing this for all of our meetings. No need to read through, intended more for myself now and for future reference)
+
+RCCN evolution project:
+
+1) Observed decrease in J complexity
+Current results seem to indicate a decrease in the complexity of the connectivity matrix (J) throughout evolution.
+
+1.a) The number of [meta] cycles (under various ways of measuring this metric) decreases, although possibly increases for certain sub matrices (e.g. the sub matrix for medium sized loops, when adapting to short stress, but this may be noise. Will look into more thoroughly)
+
+1.b) The clusterability of all graphs (as measured by the spectrum of the graph Laplacian)  decreases. i.e. less subsets of loops which have strong connections between themselves and weak connections with the remainder of the graph
+
+2) Mutations in the simulation
+The current methodology of mutating the Js may be inadequate.
+Currently, a random 10% of J entries are chosen, perturbed by a 0 centered Gaussian noise, and then the whole matrix is renormalized.
+A better (more biorealistic) approach may be to choose some row or column and perturb only it. (ideally in a way which both minimally disrupts unrelated connections, and also maintains the matrix invariants of mean and std)
+
+3. Conjugation
+May be interesting to play around with conjugating interaction matrices (terminology overload). I predict that in a high mutation rate regime, this will only slow down evolution. If I'm right, it may be a general interesting experimental approach to distinguish (low-medium) epistasis and global network properties.
+
+3.a) As a first step, I can try and conjugate some of my best solutions (resulting from different evolution simulations) and check the fitness of the resulting matrices
+
+4. Gearing up towards Ben's experiment:
+So far, candidates for interesting parameters to vary in the experiment are
+1) Selection pressure (dilution ratio)
+2) growth rate
+3) Mutation rate
+4) Conjugation rate
+5) Probably not now, but at some point later, we may also want to change the selection criterion (scan lag and choose the first colonies instead of a Lenski-like procedure)
+
+Assuming only one of these (at least initially) is possible to vary, Ill try to generate what, according to the simulation, is most interesting in terms of interesting analogies with the experiment. Ill coordinate with Ben a deadline when to present this to you both
+
+
+TODO list:
+1) Look into the possible deviations of the general decrease-in-complexity in the Js for specific submatrices
+2) Change the mutation mechanism
+3) Implement conjugation
+4) [Possibly, may take to much time] Incorporate mechanisms to track which nodes/connections changed the most. More ambitiously, track all mutations and which ones fixated
+5) Start testing out the effects of different parameter changes and look for observables of interest
+
+
+Fig 1: ("Best" column was miscalculated, can ignore)
+4 types of optimizations
+"avg" vs "exp_growth" refers to the fitness criteria - "avg" refers to selection proportionally to the inverse of the lag distribution average. "exp" refers to simulating exponential growth from the lag distribution for some fixed growth rate and selection in proportion to the proportions of genotypes obtained
+"100" vs. "2000" refers to the stress duration (T_w) on which selection was performed
+The three strings below each box refer to the two conjugating "parents" and the fitness criterion measured
+Thus the box "avg_100", "avg_100", "exp_2000" is the distribution of fitness values (exp) for
